@@ -1,7 +1,7 @@
 const UserDetails = require('../models/userDetails');
 
 
-exports.postRequest =async (req, res, next)=>{
+exports.postRequestSignup =async (req, res, next)=>{
 
     try{
      const name=req.body.name;
@@ -23,6 +23,26 @@ exports.postRequest =async (req, res, next)=>{
 }
 
 
+exports.postRequestLogin = async (req, res, next) => {
+  const { email, password } = req.body;
 
+  try {
+    const userEmail = await UserDetails.findOne({ where: { email:email } });
+    const userPassword = await UserDetails.findOne({ where: { password:password } });
+
+    if (!userEmail) {
+      res.status(404).json({ error: 'Error:Request failed with status code 404 (or) account not found.' });
+     }
+      else if (!userPassword) {
+      res.status(401).json({ error: 'Incorrect password' });
+    }
+     else {
+      res.status(200).json({ message: 'Login successful' });
+    }
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
 
 
