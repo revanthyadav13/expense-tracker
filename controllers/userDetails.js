@@ -1,5 +1,7 @@
 const UserDetails = require('../models/userDetails');
 
+const bcrypt = require('bcrypt');
+
 
 exports.postRequestSignup =async (req, res, next)=>{
 
@@ -8,8 +10,11 @@ exports.postRequestSignup =async (req, res, next)=>{
     const email=req.body.email;
     const password=req.body.password;
 
+     const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
     console.log(name, email, password);
-    const data= await UserDetails.create({name:name, email:email, password:password});
+    const data= await UserDetails.create({name:name, email:email, password:hashedPassword});
 
     res.status(201).json({newUserDetail:data});
     }catch(err){
@@ -27,22 +32,22 @@ exports.postRequestLogin = async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
-    const userEmail = await UserDetails.findOne({ where: { email:email } });
-    const userPassword = await UserDetails.findOne({ where: { password:password } });
+    const user = await UserDetails.findOne({ where: { email: email } });
 
-    if (!userEmail) {
-      res.status(404).json({ error: 'Error:Request failed with status code 404 (or) account not found.' });
-     }
-      else if (!userPassword) {
+    if (!user) {
+      res.status(404).json({ error: 'Error: Request failed with status code 404 (or) account not found.' });
+      return;
+    }
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (isPasswordValid) {
+      res.status(200).json({ message: 'Login successful' });
+    } else {
       res.status(401).json({ error: 'Incorrect password' });
     }
-     else {
-      res.status(200).json({ message: 'Login successful' });
-    }
-
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
-}
+};
 
 
