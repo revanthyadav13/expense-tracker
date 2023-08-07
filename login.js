@@ -15,12 +15,11 @@ function formValidation(event){
             } 
             else{
               document.getElementById("error-message").innerText="";
-              saveToDatabase(event);
+              saveToDatabase();
             }
 }
 
-function saveToDatabase(event){
-    event.preventDefault();
+function saveToDatabase(){
 
     const email=document.getElementById("email").value;
     const password=document.getElementById("password").value;
@@ -39,7 +38,8 @@ function saveToDatabase(event){
                 document.getElementById('error-message').innerText = response.data.error;
             }
             else{
-                document.getElementById('success-message').innerText = response.data.message;
+                alert(response.data.message);
+                location.href = 'expenseTracker.html';
             }
             
              document.getElementById("email").value="";
