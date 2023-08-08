@@ -2,8 +2,9 @@ document.addEventListener("DOMContentLoaded", fetchFromDatabase);
 
 
 function fetchFromDatabase() {
+  const token=localStorage.getItem('token');
   axios
-    .get("http://localhost:3000/expense/get-expenses")
+    .get("http://localhost:3000/expense/get-expenses",{headers:{"Authorization":token}})
     .then((response) => {
      for(var i=0;i<response.data.allExpenses.length;i++){
            showExpenseDetails(response.data.allExpenses[i])
@@ -32,8 +33,8 @@ function saveToDatabase(event){
         description:description, 
         category:category
         }
-
-        axios.post('http://localhost:3000/expense/add-expense',details)
+      const token=localStorage.getItem('token');
+        axios.post('http://localhost:3000/expense/add-expense',details,{headers:{"Authorization":token}})
         .then((response)=>{showExpenseDetails(response.data.newExpenseDetail)})
 
         .catch((err)=>console.log(err))
@@ -60,10 +61,11 @@ del.setAttribute("expense-id",details.id);
 del.style.backgroundColor="red";
 del.addEventListener("click",deleteStock);
 
-function deleteStock(event,userId){
+function deleteStock(event,expenseId){
     event.preventDefault();
  expenseId = event.target.getAttribute("expense-id");
-    axios.delete(`http://localhost:3000/expense/delete-expense/${expenseId}`)
+ const token=localStorage.getItem('token');
+    axios.delete(`http://localhost:3000/expense/delete-expense/${expenseId}`,{headers:{"Authorization":token}})
     .then((response)=>{
         console.log(response);
     })

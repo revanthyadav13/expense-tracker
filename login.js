@@ -39,6 +39,7 @@ function saveToDatabase(){
             }
             else{
                 alert(response.data.message);
+                localStorage.setItem('token',response.data.token);
                 location.href = 'expenseTracker.html';
             }
             
@@ -48,7 +49,6 @@ function saveToDatabase(){
              })
 
         .catch((err)=>{
-            document.getElementById('success-message').innerText = "";
         if(err.response.status==404){
                 document.getElementById('error-message').innerText = "Error:Request failed with status code 404 (or) account not found.";
             }

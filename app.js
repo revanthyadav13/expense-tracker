@@ -24,9 +24,11 @@ app.use(express.json());
 app.use('/user',userDetailsRoutes);
 app.use('/expense',expenseDetailsRoutes);
 
+UserDetails.hasMany(ExpenseDetails,{ foreignKey: 'userId' });
+ExpenseDetails.belongsTo(UserDetails,{ foreignKey: 'userId' });
 
 sequelize
-   //.sync({ force: true })
+ //.sync({ force: true })
  .sync()
   .then(result => {
    app.listen(3000);
