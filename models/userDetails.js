@@ -2,8 +2,9 @@ const Sequelize= require('sequelize');
 
 const sequelize=require('../util/database');
 
+
 const UserDetails = sequelize.define('userDetails', {
-  id:{
+    id:{
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
@@ -15,13 +16,13 @@ const UserDetails = sequelize.define('userDetails', {
  },
   email: {
     type: Sequelize.STRING,
-    allowNull: false,
-    unique: true
+    allowNull: false
   },
    password: {
     type: Sequelize.STRING,
     allowNull: false
-  }
+  },
+  ispremiumuser:Sequelize.BOOLEAN
 });
 
 module.exports = UserDetails;
