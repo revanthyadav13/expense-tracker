@@ -1,15 +1,25 @@
 const ExpenseDetails = require('../models/expenseDetails');
+const UserDetails = require('../models/userDetails');
 
+exports.getPremiumStatus =async (req, res, next)=>{
+
+    try{
+     
+    const data= await UserDetails.findOne({ where: {id:req.user.id} });
+    res.status(201).json({userDetail:data});
+    }catch(err){
+      console.log(err)
+        res.status(500).json({
+            error:err
+        })
+    }
+   
+}
 
 exports.postRequestAddExpense =async (req, res, next)=>{
 
     try{
-     const expenseAmount=req.body.expenseAmount;
-    const description=req.body.description;
-    const category=req.body.category;
-
-    console.log(expenseAmount,description,category);
-    const data= await ExpenseDetails.create({expenseAmount:expenseAmount, description:description,category:category,userId:req.user.id});
+    const orderPromise = Order.findOne({ where: { orderid: order_id } });
     res.status(201).json({newExpenseDetail:data});
     }catch(err){
       console.log(err)

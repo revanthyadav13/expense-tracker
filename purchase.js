@@ -20,6 +20,9 @@ console.log(response);
                         headers: { "Authorization": token }
                     });
                     alert('Payment successful! You are a premium user');
+                    purchaseBtn.style.display = 'none';
+                    document.getElementById('buy-message').innerText = "";
+                    document.getElementById('success-message').innerText = "You are a premium user";
                 } catch (error) {
                     console.error('Error updating transaction status:', error);
                     alert('Payment successful, but status update failed. Please contact support.');
@@ -43,6 +46,8 @@ console.log(response);
             console.error('Error updating transaction status:', error);
         });
         alert('Payment failed! Please try again or contact support.');
+        document.getElementById('success-message').innerText = "";
+        document.getElementById('buy-message').innerText = "You are not a premium user buy premium"
     });
 
 rzp.open();

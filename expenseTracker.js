@@ -13,6 +13,21 @@ function fetchFromDatabase() {
       .catch((err)=>{
         console.log(err);
       })
+var purchaseBtn=document.getElementById("rzp-button1");
+  axios
+    .get("http://localhost:3000/expense/get-premiumStatus",{headers:{"Authorization":token}})
+    .then((response) => {
+      if(response.data.userDetail.ispremiumuser==true){
+        purchaseBtn.style.display = 'none';
+         document.getElementById('success-message').innerText = "You are a premium user";
+      }else{
+        document.getElementById('buy-message').innerText = "You are not a premium user buy premium"
+      }
+         
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
 }
 
 
