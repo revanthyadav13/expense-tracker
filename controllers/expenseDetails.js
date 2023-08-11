@@ -19,7 +19,21 @@ exports.getPremiumStatus =async (req, res, next)=>{
 exports.postRequestAddExpense =async (req, res, next)=>{
 
     try{
-    const orderPromise = Order.findOne({ where: { orderid: order_id } });
+
+      const expenseAmount=req.body.expenseAmount;
+    const description=req.body.description;
+    const category=req.body.category;
+    const userId=req.user.id;
+    const data = await ExpenseDetails.create({expenseAmount:expenseAmount, description:description, category:category, userId:userId});
+
+     const totalExpenses = await ExpenseDetails.sum('expenseAmount', {
+      where: { userId: userId }
+    });
+    
+    await UserDetails.update({ totalExpenses: totalExpenses }, {
+      where: { id: userId }
+    });
+
     res.status(201).json({newExpenseDetail:data});
     }catch(err){
       console.log(err)

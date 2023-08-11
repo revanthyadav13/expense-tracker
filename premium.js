@@ -9,7 +9,7 @@ function fetchFromDatabase() {
   axios.get("http://localhost:3000/premium/showLeaderBoard",{headers:{"Authorization":token}})
     .then((response) => {
         for(var i=0;i<response.data.userLeaderBoardDetails.length;i++){
-           showPremiumDetails(response.data.userLeaderBoardDetails[i].name, response.data.userLeaderBoardDetails[i].totalExpense||0)
+           showPremiumDetails(response.data.userLeaderBoardDetails[i].name, response.data.userLeaderBoardDetails[i].totalExpenses||0)
      }
       })
       .catch((err)=>{
@@ -17,12 +17,12 @@ function fetchFromDatabase() {
       })
 
 }
- function showPremiumDetails(name,expenseAmount){
+ function showPremiumDetails(name,totalExpenses){
 
     var parentEle= document.getElementById("LeaderBoardlist-items");
     var childEle=document.createElement("li");
     childEle.setAttribute("id","LeaderBoardlist-item");
-    childEle.textContent=`Name:${name}   Total Amount:${expenseAmount}`;
+    childEle.textContent=`Name:${name}   Total Amount:${totalExpenses}`;
     parentEle.appendChild(childEle);
  }
  

@@ -1,4 +1,3 @@
-const Premium = require('../models/premium');
 const ExpenseDetails = require('../models/expenseDetails');
 const UserDetails = require('../models/userDetails');
 
@@ -7,18 +6,9 @@ const sequelize=require('../util/database');
 
 exports.getRequestLeaderBoard= async(req, res, next)=>{
             try{
+              const {id, name, totalExpenses}=req.body;
         const userLeaderBoardDetails=    await UserDetails.findAll(
-            {attributes: ['id', 'name',[sequelize.fn('SUM', sequelize.col('ExpenseDetails.expenseAmount')), 'totalExpense']],
-            include:[
-                 {
-                    model:ExpenseDetails,
-                     attributes:[]
-                }
-            ]
-               
-            ,
-      group: ['UserDetails.id'],
-      order: [[sequelize.col('totalExpense'), 'DESC']]
+            {attributes: ['id', 'name', 'totalExpenses'],order: [[sequelize.col('totalExpenses'), 'DESC']]
       });    
       
 res.status(200).json({userLeaderBoardDetails});
