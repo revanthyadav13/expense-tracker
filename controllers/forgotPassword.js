@@ -17,7 +17,7 @@ exports.postForgotPassword=async (req, res, next) => {
 
      if(user){
             const id = uuid.v4();
-          await  ForgotPasswordRequest.create({ id:id , isactive: true })
+          await  ForgotPasswordRequest.create({ id:id ,userId:user.id, isactive: true })
                 .catch(err => {
                     throw new Error(err)
                 }) 
@@ -93,39 +93,43 @@ const id = req.params.id;
   }
 }
 
-exports.getUpdatePassword=async (req, res, next)=>{
-       try {
-    const { newpassword } = req.query;
-    const { resetpasswordid } = req.params;
-console.log("resetpasswordid>>>>>",resetpasswordid)
-    const resetpasswordrequest = await ForgotPasswordRequest.findOne({
-      where: { id: resetpasswordid }
-    });
-
-    if (!resetpasswordrequest) {
-      return res.status(404).json({ error: 'Forgot password request not found', success: false });
-    }
-
-    const user = await UserDetails.findOne({ where: { id: resetpasswordrequest.userId } });
-
-    if (!user) {
-      return res.status(404).json({ error: 'No user exists', success: false });
-    }
-
-    const saltRounds = 10;
-    const salt = await bcrypt.genSalt(saltRounds);
-    const hash = await bcrypt.hash(newpassword, salt);
-
+exports.getUpdatePassword = async (req, res, next) => {
     try {
-      await user.update({ password: hash });
-      res.status(201).json({ message: 'Successfully updated the new password', success: true });
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ error, success: false });
-    }
-  } catch (error) {
-    console.error(error);
-    return res.status(403).json({ error, success: false });
-  }
+        const { newpassword } = req.query;
+        const { resetpasswordid } = req.params;
+          console.log("newpassword>>>>",newpassword,"resetpasswordid>>>>",resetpasswordid);
 
-}
+        const resetpasswordrequest = await ForgotPasswordRequest.findOne({
+            where: { id: resetpasswordid }
+        });
+      
+      
+        if (resetpasswordrequest) {
+            const user = await UserDetails.findOne({
+                where: { id: resetpasswordrequest.userId }
+            });
+
+            if (user) {
+                const saltRounds = 10;
+
+                try {
+                    const salt = await bcrypt.genSalt(saltRounds);
+                    const hash = await bcrypt.hash(newpassword, salt);
+
+                    await user.update({ password: hash });
+
+                    res.status(201).json({ message: 'Successfully updated the new password' });
+                } catch (error) {
+                    console.log(error);
+                    throw new Error(error);
+                }
+            } else {
+                return res.status(404).json({ error: 'No user exists', success: false });
+            }
+        } else {
+            return res.status(404).json({ error: 'Invalid reset password request', success: false });
+        }
+    } catch (error) {
+        return res.status(403).json({ error, success: false });
+    }
+};
