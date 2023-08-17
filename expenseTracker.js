@@ -2,8 +2,21 @@ document.addEventListener("DOMContentLoaded", fetchExpenseList);
 document.addEventListener("DOMContentLoaded", fetchFileList);
 document.addEventListener("DOMContentLoaded", fetchPremiumStatus);
 
+
+const preferredExpensesPerPage = parseInt(localStorage.getItem("preferredExpensesPerPage")) || 5;
+let expenseItemsPerPage = preferredExpensesPerPage;
+
+function updateExpensesPerPage() {
+  const expensesPerPageSelector = document.getElementById("expensesPerPage");
+  const selectedValue = expensesPerPageSelector.value;
+
+  localStorage.setItem("preferredExpensesPerPage", selectedValue);
+
+  expenseItemsPerPage = parseInt(selectedValue);
+  fetchExpenseList(expenseCurrentPage);
+}
+
 let expenseCurrentPage = 1;
-const expenseItemsPerPage = 10; // Number of items per page
 const token=localStorage.getItem('token');
 
 function fetchExpenseList(expensePageNumber){
