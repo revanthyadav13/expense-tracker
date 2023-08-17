@@ -1,26 +1,12 @@
- axios.get('http://localhost:3000/user/getexpenses', { headers: {"Authorization" : token} }).then(response => {
-        if(response.status === 200){
-            response.data.expenses.forEach(expense => { addNewExpensetoUI(expense);
-            })
-        } else {
-            throw new Error();
-        }
- })
-
- function removeExpensefromUI(expenseid){
-    const expenseElemId = `expense-${expenseid}`;
-    document.getElementById(expenseElemId).remove();
-}
-
+ 
 function download(){
-    axios.get('http://localhost:3000/user/download', { headers: {"Authorization" : token} })
+    const token=localStorage.getItem('token');
+    axios.get('http://localhost:3000/expense/download', { headers: {"Authorization" : token} })
     .then((response) => {
-        if(response.status === 201){
-            //the bcakend is essentially sending a download link
-            //  which if we open in browser, the file would download
+        if(response.status === 200){
             var a = document.createElement("a");
             a.href = response.data.fileUrl;
-            a.download = 'myexpense.csv';
+            a.download = 'myexpense.txt';
             a.click();
         } else {
             throw new Error(response.data.message)
@@ -28,6 +14,6 @@ function download(){
 
     })
     .catch((err) => {
-        showError(err)
+        throw new Error(err);
     });
 }

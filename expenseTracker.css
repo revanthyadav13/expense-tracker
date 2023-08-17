@@ -1,26 +1,46 @@
+/* expenseTracker.css */
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
     margin: 0;
-    padding: 20px;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+h2 {
+    color: #333;
+}
+
+h4 {
+    margin: 0;
+    padding: 10px;
 }
 
 .container {
-    max-width: 500px;
+    max-width: 800px;
     margin: 0 auto;
-    background-color: #fff;
     padding: 20px;
+    background-color: #fff;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
-    text-align: center;
+#success-message {
+    font-weight: bold;
+}
+
+#buy-message {
+    font-weight: bold;
+}
+
+form {
+    margin-bottom: 20px;
 }
 
 label {
     display: block;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
+    font-weight: bold;
 }
 
 input[type="number"],
@@ -30,28 +50,36 @@ select {
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
+    background-color: #fff;
 }
 
 button {
-    background-color: #4CAF50;
-    color: #fff;
     padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
     border: none;
-    border-radius: 4px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
 }
 
+.button-container {
+    display: flex;
+    margin-top: 20px;
+}
+
+#LeaderBoardList,
+#downloadedFilesList,
 #expenseList {
-    margin-top: 30px;
-}
-
-#expenseList h2 {
-    margin-bottom: 10px;
+    background-color: #fff;
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 ul {
@@ -59,10 +87,18 @@ ul {
     padding: 0;
 }
 
-li {
-    padding: 5px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+ul li {
     margin-bottom: 10px;
 }
+
+input[type="number"],
+input[type="text"],
+select {
+    width: 30%; /* You can adjust the width value as needed */
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+}
+

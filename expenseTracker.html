@@ -6,7 +6,6 @@
     <h4><div id="name-message" style="color:blue;"></div></h4>
 </head>
 <body>
-    <div class="container">
         <h2>Expense Tracker<button type="button" id="rzp-button1">Buy Premium</button></h2>
         <div id="success-message" style="color:green;"></div>
         <div id="buy-message" style="color:red;"></div>
@@ -29,15 +28,31 @@
 
             <button type="button" id="addExpenseButton">Add Expense</button>
             </form>
+    <div class="button-container">
+        <button onclick="download()" id="downloadexpense">Download File</button>
+        <button type="button" id="hiddenbutton">Show LeaderBoard</button>
     </div>
-    <div><button type="button" id="hiddenbutton">Show LeaderBoard</button><button onclick="download()" id="downloadexpense">Download File</button></div>
-    <div id="LeaderBoardList">
-        <h2>LeaderBoard List</h2>
+    <div id="LeaderBoardList"><h2>LeaderBoard List</h2>
         <ul id="LeaderBoardlist-items"></ul>
     </div>
-    <div id="expenseList">
-        <h2>Expense List</h2>
+    <div id="downloadedFilesList"><h2>Downloaded Files</h2>
+        <ul id="downloadedFiles-items"></ul>
+        <div id="downloadedFilesPagination-container">
+            <button id="downloadFilesPrev-page">Previous</button>
+            <button id="downloadFilesNext-page">Next</button>
+            <div id="downloadedFilesPagination-info"></div>
+          </div> 
+    </div> 
+    
+   
+    <div id="expenseList"><h2>Expense List</h2>
         <ul id="list-items"></ul>
+        <div id="expenseListPagination-container">
+            <button id="expensePrev-page">Previous</button>
+            <button id="expenseNext-page">Next</button>
+            <div id="expenseListPagination-info"></div>
+          </div> 
+       
     </div>
     <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
