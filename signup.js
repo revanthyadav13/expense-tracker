@@ -1,7 +1,7 @@
 
 document.getElementById("name").focus();
 
-var submitBtn=document.getElementById("submit");
+var submitBtn=document.getElementById("signup");
 
 submitBtn.addEventListener('click',formValidation);
 
@@ -16,12 +16,12 @@ function formValidation(event){
             } 
             else{
               document.getElementById("error-message").innerText="";
-              saveToDatabase(event);
+              saveToDatabase();
+              location.href = 'login.html';
             }
 }
 
-function saveToDatabase(event){
-    event.preventDefault();
+function saveToDatabase(){
 
     const name=document.getElementById("name").value;
     const email=document.getElementById("email").value;
@@ -34,7 +34,10 @@ function saveToDatabase(event){
 
         axios.post('http://localhost:3000/user/signup',userdetails)
         .then((response)=>{
-            console.log(response.data.newUserDetail)
+              
+         if (response.data.status === 403) {
+          document.getElementById('error-message').innerText = "Error:Request failed with status code 403 (or) Email already registered. Please use a different email.";
+        }
              document.getElementById("name").value="";
              document.getElementById("email").value="";
              document.getElementById("password").value="";
@@ -42,11 +45,8 @@ function saveToDatabase(event){
              })
 
         .catch((err)=>{
-            if (err.response && err.response.status === 403) {
           document.getElementById('error-message').innerText = "Error:Request failed with status code 403 (or) Email already registered. Please use a different email.";
-        } else {
-          console.error('An error occurred:', err.message);
-        }
+          console.log('An error occurred:', err);
         })
    }
 

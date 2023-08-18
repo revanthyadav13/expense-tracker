@@ -133,12 +133,11 @@ exports.getRequestExpenses =async (req, res, next)=>{
 
 function uploadToS3(data, filename){
   const BUCKET_NAME='expensetracking13';
-  const IAM_USER_KEY='AKIA45PQDHQGMMC7CLPU';
-  const IAM_USER_SECRET='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';
+  
 
   let s3bucket= new AWS.S3({
-    accessKeyId: IAM_USER_KEY,
-    secretAccessKey:IAM_USER_SECRET
+    accessKeyId: process.env.IAM_USER_KEY,
+    secretAccessKey:process.env.IAM_USER_SECRET
     
   })
     

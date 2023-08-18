@@ -1,4 +1,5 @@
 var purchaseBtn=document.getElementById("rzp-button1");
+var hiddenButton = document.getElementById("hiddenbutton");
 
 purchaseBtn.addEventListener('click',premiumMembership);
 
@@ -23,9 +24,9 @@ console.log(response);
                     purchaseBtn.style.display = 'none';
                     document.getElementById('buy-message').innerText = "";
                     document.getElementById('success-message').innerText = "You are a premium user";
-                } catch (error) {
+                    hiddenButton.style.display = "block";
+                }catch (error) {
                     console.error('Error updating transaction status:', error);
-                    alert('Payment successful, but status update failed. Please contact support.');
                 }
                 },
                 theme: {

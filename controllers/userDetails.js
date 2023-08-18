@@ -2,6 +2,8 @@ const UserDetails = require('../models/userDetails');
 
 const bcrypt = require('bcrypt');
 
+const jwt=require('jsonwebtoken');
+
 
 exports.postRequestSignup =async (req, res, next)=>{
 
@@ -27,7 +29,9 @@ exports.postRequestSignup =async (req, res, next)=>{
    
 }
 
-
+function generateAccessToken(id, name, ispremiumuser){
+  return jwt.sign({userId:id, name :name, ispremiumuser:ispremiumuser}, process.env.SECRET_TOKEN)
+}
 exports.postRequestLogin = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -41,7 +45,7 @@ exports.postRequestLogin = async (req, res, next) => {
     const isPasswordValid = await bcrypt.compare(password, user.password);
 
     if (isPasswordValid) {
-      res.status(200).json({ message: 'Login successful' });
+      res.status(200).json({ message: 'user logged in successfully',token:generateAccessToken(user.id, user.name, user.ispremiumuser)});
     } else {
       res.status(401).json({ error: 'Incorrect password' });
     }

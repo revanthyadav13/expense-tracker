@@ -22,7 +22,8 @@ const UserDetails = sequelize.define('userDetails', {
     type: Sequelize.STRING,
     allowNull: false
   },
-  ispremiumuser:Sequelize.BOOLEAN
+  ispremiumuser:Sequelize.BOOLEAN,
+  totalExpenses:Sequelize.INTEGER
 });
 
 module.exports = UserDetails;

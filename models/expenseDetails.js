@@ -2,6 +2,7 @@ const Sequelize= require('sequelize');
 
 const sequelize=require('../util/database');
 
+
 const ExpenseDetails = sequelize.define('expenseDetails', {
   id:{
     type: Sequelize.INTEGER,
@@ -15,8 +16,7 @@ const ExpenseDetails = sequelize.define('expenseDetails', {
  },
   description: {
     type: Sequelize.STRING,
-    allowNull: false,
-    unique: true
+    allowNull: false
   },
    category: {
     type: Sequelize.STRING,

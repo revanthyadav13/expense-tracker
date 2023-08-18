@@ -16,6 +16,20 @@ function updateExpensesPerPage() {
   fetchExpenseList(expenseCurrentPage);
 }
 
+const preferredDownloadFilesPerPage = parseInt(localStorage.getItem("preferredDownloadFilesPerPage")) || 5;
+let downloadFilesItemsPerPage = preferredDownloadFilesPerPage;
+
+function updateDownloadFilesPerPage() {
+  const downloadFilesPerPageSelector = document.getElementById("downloadFilesPerPage");
+  const selectedValue = downloadFilesPerPageSelector.value;
+
+  localStorage.setItem("preferredDownloadFilesPerPage", selectedValue);
+
+  downloadFilesItemsPerPage = parseInt(selectedValue);
+  fetchFileList(downloadFilesCurrentPage);
+}
+
+
 let expenseCurrentPage = 1;
 const token=localStorage.getItem('token');
 
@@ -156,7 +170,7 @@ childEle.appendChild(del);
 }
 
 let downloadFilesCurrentPage = 1;
-const downloadFilesItemsPerPage = 10; // Number of items per page
+ downloadFilesItemsPerPage = 10; // Number of items per page
 
 function fetchFileList(downloadFilesPageNumber) {
   axios

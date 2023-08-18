@@ -21,7 +21,7 @@ const ContentUploaded=require('./models/contentUploaded');
 
 const app = express();
 app.use(cors());
-
+dotenv.config();
 
 
 

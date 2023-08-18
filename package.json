@@ -1,0 +1,43 @@
+{
+  "name": "expensetracker",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start-server": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/revanthyadav13/expense-tracker.git"
+  },
+  "author": "Revanth Yadav",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/revanthyadav13/expense-tracker/issues"
+  },
+  "homepage": "https://github.com/revanthyadav13/expense-tracker#readme",
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "dependencies": {
+    "@azure/storage-blob": "^12.15.0",
+    "aws-sdk": "^2.1437.0",
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "helmet": "^7.0.0",
+    "jsonwebtoken": "^9.0.1",
+    "morgan": "^1.10.0",
+    "mysql2": "^3.6.0",
+    "razorpay": "^2.9.1",
+    "sequelize": "^6.32.1",
+    "sib-api-v3-sdk": "^8.5.0",
+    "uuid": "^9.0.0"
+  },
+  "keywords": [],
+  "description": ""
+}
