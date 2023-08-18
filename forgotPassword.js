@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const email = forgotEmailInput.value;
 
         try {
-            const response = await axios.post("http://localhost:3000/password/forgotpassword", { email });
+            const response = await axios.post("http://54.165.72.81:3000/password/forgotpassword", { email });
 
             if (response.status === 200) {
                 alert("Password reset email sent. Please check your inbox.");

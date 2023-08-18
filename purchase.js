@@ -6,7 +6,7 @@ purchaseBtn.addEventListener('click',premiumMembership);
 async function premiumMembership(event){
     event.preventDefault();
 const token=localStorage.getItem('token');
-const response = await axios.get('http://localhost:3000/purchase/premiummembership',{headers:{"Authorization":token}})
+const response = await axios.get('http://54.165.72.81:3000/purchase/premiummembership',{headers:{"Authorization":token}})
 console.log(response);
             var options = {
                 "key": response.data.key_id,
@@ -14,7 +14,7 @@ console.log(response);
                 "handler": async function(response) {
 
                      try {
-                    await axios.post('http://localhost:3000/purchase/updateTransactionStatus', {
+                    await axios.post('http://54.165.72.81:3000/purchase/updateTransactionStatus', {
                         order_id: options.order_id,
                         payment_id: response.razorpay_payment_id
                     }, {
@@ -38,7 +38,7 @@ console.log(response);
             
               rzp.on('payment.failed', function (response) {
         
-        axios.post('http://localhost:3000/purchase/updateTransactionStatus', {
+        axios.post('http://54.165.72.81:3000/purchase/updateTransactionStatus', {
             order_id: options.order_id,
             payment_id: null
         }, {

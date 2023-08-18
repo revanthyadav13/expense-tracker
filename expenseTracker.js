@@ -35,7 +35,7 @@ const token=localStorage.getItem('token');
 
 function fetchExpenseList(expensePageNumber){
 axios
-    .get(`http://localhost:3000/expense/get-expenses?page=${expensePageNumber}&perPage=${expenseItemsPerPage}`,{headers:{"Authorization":token}})
+    .get(`http://54.165.72.81:3000/expense/get-expenses?page=${expensePageNumber}&perPage=${expenseItemsPerPage}`,{headers:{"Authorization":token}})
     .then((response) => {
 
       const totalExpenses = response.data.totalExpenses; // Total number of expenses
@@ -90,7 +90,7 @@ function fetchPremiumStatus() {
   var purchaseBtn=document.getElementById("rzp-button1");
 var hiddenBtn=document.getElementById("hiddenbutton");
   axios
-    .get("http://localhost:3000/expense/get-premiumStatus",{headers:{"Authorization":token}})
+    .get("http://54.165.72.81:3000/expense/get-premiumStatus",{headers:{"Authorization":token}})
     .then((response) => {
       document.getElementById('name-message').innerText = `Hi ${response.data.userDetail.name} `;
       if(response.data.userDetail.ispremiumuser==true){
@@ -127,7 +127,7 @@ function saveToDatabase(event){
         category:category
         }
       const token=localStorage.getItem('token');
-        axios.post('http://localhost:3000/expense/add-expense', details, {headers:{"Authorization":token}})
+        axios.post('http://54.165.72.81:3000/expense/add-expense', details, {headers:{"Authorization":token}})
         .then((response)=>{showExpenseDetails(response.data.newExpenseDetail)})
 
         .catch((err)=>console.log(err))
@@ -158,7 +158,7 @@ function deleteStock(event){
     event.preventDefault();
  const expenseId = event.target.getAttribute("expense-id");
  const token=localStorage.getItem('token');
-    axios.delete(`http://localhost:3000/expense/delete-expense/${expenseId}`,{headers:{"Authorization":token}})
+    axios.delete(`http://54.165.72.81:3000/expense/delete-expense/${expenseId}`,{headers:{"Authorization":token}})
     .then((response)=>{
         console.log(response);
     })
@@ -174,7 +174,7 @@ let downloadFilesCurrentPage = 1;
 
 function fetchFileList(downloadFilesPageNumber) {
   axios
-    .get(`http://localhost:3000/expense/getFiles?page=${downloadFilesPageNumber}&perPage=${downloadFilesItemsPerPage}`, {headers: {"Authorization": token}})
+    .get(`http://54.165.72.81:3000/expense/getFiles?page=${downloadFilesPageNumber}&perPage=${downloadFilesItemsPerPage}`, {headers: {"Authorization": token}})
     .then((response) => {
       const allContent = response.data.allContent;
       const totalCount = response.data.totalCount;

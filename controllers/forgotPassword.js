@@ -38,7 +38,7 @@ const subject = 'reset password';
 const htmlContent =  `
   <p>Hello,</p>
   <p>Click the following link to reset your password:</p>
-  <a href="http://localhost:3000/password/resetpassword/${id}">Reset Password</a>
+  <a href="http://54.165.72.81:3000/password/resetpassword/${id}">Reset Password</a>
   <p>If you did not request a password reset, please ignore this email.</p>
 `;
 
@@ -77,7 +77,7 @@ const id = req.params.id;
               console.log('called');
             }
           </script>
-          <form action="http://localhost:3000/password/updatepassword/${id}" method="get">
+          <form action="http://54.165.72.81:3000/password/updatepassword/${id}" method="get">
             <label for="newpassword">Enter New password</label>
             <input name="newpassword" type="password" required></input>
             <button>reset password</button>
