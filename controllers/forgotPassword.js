@@ -1,5 +1,5 @@
 const UserDetails = require('../models/userDetails');
-const ForgotPasswordRequest = require('../models/forgotpasswordRequest');
+const ForgotPasswordRequest = require('../models/forgotPasswordRequest');
 const SibApiV3Sdk = require('sib-api-v3-sdk');
 const uuid = require('uuid');
 const bcrypt = require('bcrypt');
