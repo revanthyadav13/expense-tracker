@@ -2,6 +2,8 @@ const UserDetails = require('../models/userDetails');
 const jwt=require('jsonwebtoken');
 
 exports.authenticate=  (req, res, next)=>{
+         
+
          try{
             const token=req.header("Authorization");
             const user=jwt.verify(token, process.env.SECRET_TOKEN);

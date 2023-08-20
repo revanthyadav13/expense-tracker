@@ -1,10 +1,11 @@
 const ExpenseDetails = require('../models/expenseDetails');
 const UserDetails = require('../models/userDetails');
-const ContentUploaded=require('../models/contentUploaded');
-const Sequelize= require('sequelize');
-const sequelize=require('../util/database');
 const AWS= require('aws-sdk');
 
+const ContentUploaded=require('../models/contentUploaded');
+
+const Sequelize= require('sequelize');
+const sequelize=require('../util/database');
 
 exports.getPremiumStatus =async (req, res, next)=>{
 
