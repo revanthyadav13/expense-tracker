@@ -1,5 +1,7 @@
 const Sequelize= require('sequelize');
+
 const sequelize=require('../util/database');
+
 
 const ContentUploaded = sequelize.define('contentUploaded', {
   userId:{

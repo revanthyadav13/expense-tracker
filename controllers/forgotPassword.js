@@ -3,8 +3,9 @@ const ForgotPasswordRequest = require('../models/forgotPasswordRequest');
 const SibApiV3Sdk = require('sib-api-v3-sdk');
 const uuid = require('uuid');
 const bcrypt = require('bcrypt');
-require('dotenv').config();
 
+
+require('dotenv').config();
 const defaultClient = SibApiV3Sdk.ApiClient.instance;
 const apiKey = defaultClient.authentications['api-key'];
 apiKey.apiKey = process.env.API_KEY; // Replace with your SendinBlue API key
