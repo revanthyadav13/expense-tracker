@@ -7,5 +7,4 @@ const router = express.Router();
 
 router.get('/showLeaderBoard', userAuthentication.authenticate, premiumController.getRequestLeaderBoard);
 
-
 module.exports = router;
