@@ -1,8 +1,7 @@
 const path = require('path');
 const express = require('express');
 const cors = require('cors');
-const Sequelize = require('sequelize');
-const sequelize = require('./util/database');
+const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const helmet = require('helmet');
 const compression = require('compression');
@@ -10,10 +9,8 @@ const morgan = require('morgan');
 const fs = require('fs');
 
 
-
-
-const UserDetails=require('./models/userDetails');
-const ExpenseDetails=require('./models/expenseDetails');
+const User=require('./models/user');
+const expense=require('./models/expense');
 const Order=require('./models/orders');
 const ForgotPasswordRequest=require('./models/forgotPasswordRequest');
 const ContentUploaded=require('./models/contentUploaded');
@@ -24,10 +21,8 @@ app.use(cors());
 dotenv.config();
 
 
-
-
-const userDetailsRoutes=require('./routes/userDetails')
-const expenseDetailsRoutes=require('./routes/expenseDetails')
+const userRoutes=require('./routes/user')
+const expenseRoutes=require('./routes/expense')
 const purchaseRoutes=require('./routes/purchase')
 const premiumRoutes=require('./routes/premium')
 const forgotPasswordRoutes=require('./routes/forgotPassword')
@@ -42,28 +37,25 @@ app.use(express.json());
 app.use(compression());
 app.use(morgan('combined',{stream:accessLogStream}));
 
-app.use('/user',userDetailsRoutes);
-app.use('/expense',expenseDetailsRoutes);
+app.use('/user',userRoutes);
+app.use('/expense',expenseRoutes);
 app.use('/purchase',purchaseRoutes);
 app.use('/premium',premiumRoutes);
 app.use('/password',forgotPasswordRoutes);
 
-UserDetails.hasMany(ExpenseDetails,{ foreignKey: 'userId' });
-ExpenseDetails.belongsTo(UserDetails,{ foreignKey: 'userId' });
 
-UserDetails.hasMany(Order,{ foreignKey: 'userId' });
-Order.belongsTo(UserDetails,{ foreignKey: 'userId' });
-
-UserDetails.hasMany(ForgotPasswordRequest, {foreignKey: 'userId'});
-ForgotPasswordRequest.belongsTo(UserDetails, {foreignKey: 'userId'});
-
-UserDetails.hasMany(ContentUploaded, {foreignKey: 'userId'});
-ContentUploaded.belongsTo(UserDetails, {foreignKey: 'userId'});
-
-
-sequelize
-//.sync({ alter: true })
-.sync()
-  .then(result => {
-   app.listen(process.env.PORT || 3000);
-  })
+mongoose.connect("mongodb+srv://revanth:fEChn28xpRPQZf5m@cluster0.ybysmcy.mongodb.net/expensetracker?retryWrites=true&w=majority&appName=AtlasApp", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+  .then(() => console.log('Connected to MongoDB')
+  )
+  .catch((err) => console.error('MongoDB connection error:', err));
+  
+  try {
+  app.listen(3000, () => {
+    console.log(`Server is running on port 3000`);
+  });
+} catch (error) {
+  console.error(`Error starting the server: 3000`);
+}

@@ -1,17 +1,19 @@
-const Sequelize= require('sequelize');
+const mongoose = require('mongoose');
 
-const sequelize=require('../util/database');
-
-
-const ContentUploaded = sequelize.define('contentUploaded', {
-  userId:{
-    type: Sequelize.INTEGER,
-    allowNull: false
+const contentUploadedSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   },
- url:{
-    type: Sequelize.STRING,
-    allowNull: false
- }
+  url: {
+    type: String,
+    required: true
+  }
+}, {
+  timestamps: true // This will add createdAt and updatedAt fields to your documents.
 });
+
+const ContentUploaded = mongoose.model('ContentUploaded', contentUploadedSchema);
 
 module.exports = ContentUploaded;

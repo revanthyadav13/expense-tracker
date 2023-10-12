@@ -1,23 +1,16 @@
-const ExpenseDetails = require('../models/expenseDetails');
-const UserDetails = require('../models/userDetails');
+const User = require('../models/user');
 
-const Sequelize= require('sequelize');
-const sequelize=require('../util/database');
+exports.getRequestLeaderBoard = async (req, res, next) => {
+  try {
+    const userLeaderBoardDetails = await User.find()
+      .select('id name totalExpenses')
+      .sort({ totalExpenses: -1 });
 
-exports.getRequestLeaderBoard= async(req, res, next)=>{
-            try{
-              const {id, name, totalExpenses}=req.body;
-        const userLeaderBoardDetails=    await UserDetails.findAll(
-            {attributes: ['id', 'name', 'totalExpenses'],order: [[sequelize.col('totalExpenses'), 'DESC']]
-      });    
-      
-res.status(200).json({userLeaderBoardDetails});
-  }catch(error) {
-
-    console.log(error)
+    res.status(200).json({ userLeaderBoardDetails });
+  } catch (error) {
+    console.error(error);
     res.status(500).json({
-      error: error.message 
+      error: error.message,
     });
   }
-}
-
+};

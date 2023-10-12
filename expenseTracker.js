@@ -52,7 +52,7 @@ axios
       clearExpenseList();
 
      for(var i=0;i<response.data.allExpenses.length;i++){
-           showExpenseDetails(response.data.allExpenses[i])
+           showexpense(response.data.allExpenses[i])
      }
       })
       .catch((err)=>{
@@ -128,13 +128,13 @@ function saveToDatabase(event){
         }
       const token=localStorage.getItem('token');
         axios.post('http://localhost:3000/expense/add-expense', details, {headers:{"Authorization":token}})
-        .then((response)=>{showExpenseDetails(response.data.newExpenseDetail)})
+        .then((response)=>{showexpense(response.data.newExpenseDetail)})
 
         .catch((err)=>console.log(err))
    }
 
 
-   function showExpenseDetails(details){
+   function showexpense(details){
 
     document.getElementById("expenseAmount").value="";
     document.getElementById("description").value="";
@@ -150,7 +150,7 @@ function saveToDatabase(event){
 
 var del =document.createElement("button");
 del.textContent="\u2717";
-del.setAttribute("expense-id",details.id);
+del.setAttribute("expense-id",details._id);
 del.style.backgroundColor="red";
 del.addEventListener("click",deleteStock);
 
@@ -170,7 +170,7 @@ childEle.appendChild(del);
 }
 
 let downloadFilesCurrentPage = 1;
- downloadFilesItemsPerPage = 10; // Number of items per page
+ downloadFilesItemsPerPage = 5; // Number of items per page
 
 function fetchFileList(downloadFilesPageNumber) {
   axios
@@ -241,7 +241,7 @@ function showListOfFiles(url, createdAt, updatedAt){
      anchorElem.href = url;
      anchorElem.textContent = url; 
   childEle.appendChild(anchorElem);
-childEle.appendChild(document.createTextNode("----- Created At: " + createdAt +"----- Created At: " + createdAt + " ----- Updated At: " + updatedAt));
+childEle.appendChild(document.createTextNode("----- Created At: " + createdAt+ " ----- Updated At: " + updatedAt));
   
     parentEle.appendChild(childEle);
 

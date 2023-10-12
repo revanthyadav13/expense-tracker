@@ -27,12 +27,12 @@ function saveToDatabase(){
     const email=document.getElementById("email").value;
     const password=document.getElementById("password").value;
     
-    const userdetails={name:name, 
+    const user={name:name, 
         email:email, 
         password:password
         }
 
-        axios.post('http://localhost:3000/user/signup',userdetails)
+        axios.post('http://localhost:3000/user/signup',user)
         .then((response)=>{
               
          if (response.data.status === 403) {
